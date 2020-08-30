@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class ArticleController
+class ArticleController extends AbstractController
 {
 	/**
 	 * @Route("/")
@@ -22,9 +23,16 @@ class ArticleController
 
 	public function show($slug)
 	{
-		return new Response(sprintf(
-			'Future page to show the article: %s',
-			$slug
-		));
+		$comments = [
+			"C'est un superbe site réalisé avec Symfony",
+			'Ce site est bof, réalisé avec Joumla',
+			'Ce site est pourri et static, réalisé avec Wordpress',
+		];
+
+		return $this->render('article/show.html.twig', [
+			'title' => ucwords(str_replace('-', ' ', $slug)),
+			'comments' => $comments,
+		]);
+		
 	}
 }
